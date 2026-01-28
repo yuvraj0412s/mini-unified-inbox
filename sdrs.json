@@ -1,0 +1,12 @@
+[
+  {
+    "id": "sdr1",
+    "name": "Alice",
+    "max_active_threads": 2
+  },
+  {
+    "id": "sdr2",
+    "name": "Bob",
+    "max_active_threads": 2
+  }
+]

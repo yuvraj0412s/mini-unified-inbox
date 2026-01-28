@@ -1,0 +1,14 @@
+[
+  {
+    "email": "lead1@example.com",
+    "company": "Company A",
+    "status": "new",
+    "last_contacted_at": "2026-01-27T08:00:00Z"
+  },
+  {
+    "email": "lead2@example.com",
+    "company": "Company B",
+    "status": "new",
+    "last_contacted_at": "2026-01-27T10:00:00Z"
+  }
+]

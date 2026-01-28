@@ -1,0 +1,29 @@
+[
+  {
+    "id": "e1",
+    "thread_id": "t1",
+    "from_email": "lead1@example.com",
+    "to": ["sales@company.com"],
+    "timestamp": "2026-01-27T08:00:00Z",
+    "subject": "Interested in product",
+    "body": "Please send more details."
+  },
+  {
+    "id": "e2",
+    "thread_id": "t1",
+    "from_email": "sales@company.com",
+    "to": ["lead1@example.com"],
+    "timestamp": "2026-01-27T09:00:00Z",
+    "subject": "Re: Interested in product",
+    "body": "Here are the details..."
+  },
+  {
+    "id": "e3",
+    "thread_id": "t2",
+    "from_email": "lead2@example.com",
+    "to": ["sales@company.com"],
+    "timestamp": "2026-01-27T10:00:00Z",
+    "subject": "Pricing question",
+    "body": "How much does it cost?"
+  }
+]
