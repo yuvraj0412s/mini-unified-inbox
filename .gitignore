@@ -1,18 +1,10 @@
-# Python cache files
+# all ignored files
 __pycache__/
 *.pyc
-
-# Virtual environment
 venv/
 env/
 .venv/
-
-# IDE / editor files
 .vscode/
 .idea/
-
-# System files
 .DS_Store
-
-# Environment variables
 .env

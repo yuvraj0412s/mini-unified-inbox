@@ -13,10 +13,7 @@ def root():
         "docs": "http://127.0.0.1:8000/docs"
     }
 
-# ==========================
-# Pydantic Models
-# ==========================
-
+#moderls
 class Email(BaseModel):
     id: str
     thread_id: str
@@ -47,14 +44,11 @@ class Lead(BaseModel):
     status: str
     last_contacted_at: str
 
-# ==========================
 # Load Input Data
-# ==========================
 
 with open("emails.json") as f:
     raw_emails = json.load(f)
 
-# Convert "from" key to "from_email" for Pydantic
 emails = []
 for e in raw_emails:
     emails.append({
@@ -73,9 +67,7 @@ with open("sdrs.json") as f:
 with open("leads.json") as f:
     leads = json.load(f)
 
-# ==========================
 # In-Memory Stores
-# ==========================
 
 threads = {}
 lead_map = {lead["email"]: lead for lead in leads}
@@ -84,9 +76,7 @@ sdr_map = {
     for sdr in sdrs
 }
 
-# ==========================
 # Helper Functions
-# ==========================
 
 def parse_time(ts: str) -> datetime:
     return datetime.fromisoformat(ts.replace("Z", ""))
@@ -100,11 +90,9 @@ def get_least_loaded_sdr():
         return None
     return min(eligible, key=lambda s: s["active_threads"])
 
-# ==========================
 # Core Logic
-# ==========================
 
-# 1. Group emails into threads
+# 1. Grouping of emails into threadds
 for email in emails:
     t_id = email["thread_id"]
 
@@ -121,7 +109,7 @@ for email in emails:
 
     threads[t_id]["emails"].append(email)
 
-# 2. Process each thread
+# 2. Processing of  each thread
 for thread in threads.values():
     # Sort emails by timestamp
     thread["emails"].sort(key=lambda e: parse_time(e["timestamp"]))
@@ -143,18 +131,18 @@ for thread in threads.values():
         lead_map[lead_email]["last_contacted_at"] = last_email["timestamp"]
 
     # Conversation state logic
-    if "sales@company.com" in last_email.get("to", []):
+    if "leandex@gmail.com" in last_email.get("to", []):
         thread["state"] = "waiting_on_sdr"
         lead_map[lead_email]["status"] = "contacted"
     else:
         thread["state"] = "waiting_on_lead"
         lead_map[lead_email]["status"] = "engaged"
 
-    # SLA check (24 hours)
+    # SLA check if>24 hours-> breached
     if datetime.utcnow() - parse_time(last_email["timestamp"]) > timedelta(hours=24):
         thread["sla_breached"] = True
 
-# 3. SDR Assignment Engine
+# 3. SDR 
 for thread in threads.values():
     if thread["assigned_sdr"] is None and thread["state"] != "closed":
         sdr = get_least_loaded_sdr()
@@ -162,9 +150,7 @@ for thread in threads.values():
             thread["assigned_sdr"] = sdr["id"]
             sdr["active_threads"] += 1
 
-# ==========================
 # API Endpoints
-# ==========================
 
 @app.get("/inbox", response_model=List[Thread])
 def get_inbox():
